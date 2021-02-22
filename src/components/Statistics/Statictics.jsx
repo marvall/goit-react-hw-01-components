@@ -1,30 +1,32 @@
 import React from "react";
+import Stat from "./Stat";
+import PropTypes from "prop-types";
+import Style from "./Statistics.module.scss";
 
 function Statistics({ stats, title }) {
+  function collection(arr) {
+    return arr.map((item) => {
+      if (item === "NOT DATA") {
+        return <Stat label={item} />;
+      }
+      return (
+        <Stat key={item.id} label={item.label} percentage={item.percentage} />
+      );
+    });
+  }
   return (
-    <section class="statistics">
-      <h2 class="title">{title}</h2>
+    <section className={Style.statistics}>
+      <h2 className={Style.title}>{title ? title.toUpperCase() : title}</h2>
 
-      <ul class="stat-list">
-        <li class="item">
-          <span class="label">.docx</span>
-          <span class="percentage">4%</span>
-        </li>
-        <li class="item">
-          <span class="label">.mp3</span>
-          <span class="percentage">14%</span>
-        </li>
-        <li class="item">
-          <span class="label">.pdf</span>
-          <span class="percentage">41%</span>
-        </li>
-        <li class="item">
-          <span class="label">.mp4</span>
-          <span class="percentage">12%</span>
-        </li>
-      </ul>
+      <ul className={Style.statList}>{collection(stats)}</ul>
     </section>
   );
 }
-
+Statistics.defaultProps = {
+  stats: ["NOT DATA"],
+};
+Statistics.propTypes = {
+  title: PropTypes.string,
+  stats: PropTypes.array.isRequired,
+};
 export default Statistics;
