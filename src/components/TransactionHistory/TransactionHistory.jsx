@@ -14,23 +14,8 @@ const useStyles = createUseStyles({
     padding: 10,
   },
 });
-
 function TransactionHistory({ items }) {
   const classes = useStyles();
-  function collection(data) {
-    return data.map((item, index) => {
-      return (
-        <Transaction
-          key={item.id}
-          id={item.id}
-          type={item.type}
-          amount={item.amount}
-          currency={item.currency}
-          count={index % 2}
-        />
-      );
-    });
-  }
   return (
     <>
       <table className={classes.transactionHistory}>
@@ -42,12 +27,26 @@ function TransactionHistory({ items }) {
           </tr>
         </thead>
 
-        <tbody>{collection(items)}</tbody>
+        <tbody>
+          {items.map((item, index) => (
+            <Transaction
+              key={item.id}
+              id={item.id}
+              type={item.type}
+              amount={item.amount}
+              currency={item.currency}
+              count={index % 2}
+            />
+          ))}
+        </tbody>
       </table>
     </>
   );
 }
+TransactionHistory.defaultProps = {
+  items: [],
+};
 TransactionHistory.propTypes = {
-  items: PropTypes.array,
+  items: PropTypes.array.isRequired,
 };
 export default TransactionHistory;

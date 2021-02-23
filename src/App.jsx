@@ -14,12 +14,12 @@ function App() {
     <>
       <div className={Style.wrapper}>
         <div className={Style.item}>
-          <Profile state={data} />
+          <Profile users={data} />
           <Statistics stats={statisticalData} title="Upload stats" />
           <Statistics stats={statisticalData} />
         </div>
         <div className={Style.item}>
-          <FriendList state={friends} />
+          <FriendList friends={friends} />
         </div>
         <div className={Style.item}>
           <TransactionHistory items={transactions} />
